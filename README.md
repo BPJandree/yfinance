@@ -1,3 +1,4 @@
+This version uses v6 api instead of v10 api to retrieve real-time quotes. 
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
