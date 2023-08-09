@@ -20,7 +20,7 @@ get_price <- function(ticker) {
     pb$tick(tokens = list(what = ticker))
     jsonlite::flatten(
       jsonlite::fromJSON(
-        glue::glue("https://query2.finance.yahoo.com/v10/finance/quoteSummary/{ticker}?modules=price")
+        glue::glue("https://query2.finance.yahoo.com/v6/finance/quoteSummary/{ticker}?modules=price")
         )[[1]][[1]][[1]]
       ) %>%
       select(ends_with(".raw")) %>%
