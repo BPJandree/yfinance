@@ -15,13 +15,13 @@
 #' get_price(c("AAPL", "GOOG"))
 
 get_price <- function(ticker) {
-  pb <- progress_bar(datatype = "Prices", ticker = ticker)
+  #pb <- progress_bar(datatype = "Prices", ticker = ticker)
   get_price_proto <- function(ticker, ...) {
-    pb$tick(tokens = list(what = ticker))
+    #pb$tick(tokens = list(what = ticker))
     jsonlite::flatten(
       jsonlite::fromJSON(
         glue::glue("https://query2.finance.yahoo.com/v6/finance/quoteSummary/{ticker}?modules=price")
-        )[[1]][[1]][[1]]
+        )[[1]]$result
       ) %>%
       select(ends_with(".raw")) %>%
       `names<-`(sub(".raw","", names(.))) %>%
@@ -31,5 +31,6 @@ get_price <- function(ticker) {
       ) %>%
       select(ticker, date, everything())
   }
-  safe_download(vector = ticker, proto_function = get_price_proto)
+  out<-safe_download(vector = ticker, proto_function = get_price_proto)
+  names(out)<-gsub("price.", "",names(out))
 }
