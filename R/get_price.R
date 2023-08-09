@@ -33,4 +33,5 @@ get_price <- function(ticker) {
   }
   out<-safe_download(vector = ticker, proto_function = get_price_proto)
   names(out)<-gsub("price.", "",names(out))
+  out
 }
